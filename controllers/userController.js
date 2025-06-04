@@ -22,3 +22,18 @@ exports.registerController = async(req,res) =>{
     res.status(500).json(error)
  }
 }
+
+exports.loginController = async(req,res) =>{
+    const { email, password } = req.body
+    console.log(req.body)
+    try{
+        const registeredUser = await users.findOne({email,password});
+        if(registeredUser){
+            res.status(200).json(registeredUser)
+        }else{
+            res.status(401).json('Invalid credentials')
+        }
+    }catch(error){
+        res.status(500).json(error)
+    }
+}
