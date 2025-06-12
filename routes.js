@@ -3,6 +3,9 @@ const routes = express.Router();
 
 const userController = require('./controllers/userController');
 const recipeController = require('./controllers/recipeController')
+const saveRecipeController = require('./controllers/savedRecipeController');
+const downloadController = require('./controllers/downloadController');
+const jwtMiddleware = require('./middlewares/jwtMiddleware');
 
 //register api
 routes.post('/user-register',userController.registerController);
@@ -15,5 +18,16 @@ routes.get('/home-recipes', recipeController.getHomeRecipeController )
 
 // get all the recipes
 routes.get('/all-recipes', recipeController.getAllRecipeController)
+
+// get a single recipe
+routes.get('/view/:id',jwtMiddleware, recipeController.getSingleRecipeController)
+
+//get all related recipes
+routes.get('/related-recipes',jwtMiddleware,recipeController.getAllRelatedRecipesController)
+
+//save a recipe
+routes.post('/save-recipe/:recipeid',jwtMiddleware, saveRecipeController.addSaveRecipeController)
+
+routes.post('/download-recipe/:recipeId',jwtMiddleware,downloadController.addDownloadRecipeController)
 
 module.exports = routes
