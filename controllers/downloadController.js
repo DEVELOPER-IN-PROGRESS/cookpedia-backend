@@ -1,17 +1,20 @@
 const downloads = require('../models/downloadModel')
 
 exports.addDownloadRecipeController = async(req,res)=>{
-const { recipeid } = req.params
+const { recipeId } = req.params;
+console.log(recipeId);
 const {name , cuisine , image} = req.body
+console.log(name,cuisine,image, 'download')
 const userId = req.payload;
+console.log(userId);
 
     try{
-        const existingRecipe = await downloads.findOne({recipeId:recipeid})
+        const existingRecipe = await downloads.findOne({recipeId})
         if(existingRecipe){
 
         }else{
             const newRecipe = new downloads({
-                recipeId:recipeid,
+                recipeId,
                 name,
                 cuisine,
                 image,
@@ -21,6 +24,18 @@ const userId = req.payload;
             await newRecipe.save()
             res.status(200).json(newRecipe)
         }
+    }catch(error){
+        res.status(500).json(error)
+    }
+}
+
+
+exports.getDownloadRecipeController = async(req,res)=>{
+    const userId = req.payload;
+    console.log({userId})
+    try{
+        const allDownloadedRecipes = await downloads.find({userId})
+        res.status(200).json(allDownloadedRecipes)
     }catch(error){
         res.status(500).json(error)
     }

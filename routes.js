@@ -30,4 +30,11 @@ routes.post('/save-recipe/:recipeid',jwtMiddleware, saveRecipeController.addSave
 
 routes.post('/download-recipe/:recipeId',jwtMiddleware,downloadController.addDownloadRecipeController)
 
+routes.get('/saved-user-recipes',jwtMiddleware,saveRecipeController.getAllSavedUserRecipesController);
+
+routes.delete('/delete-saved-recipe/:id',saveRecipeController.deleteSavedRecipesController);
+
+//path to get all the downloaded recipes
+routes.get('/downloaded-user-recipes', jwtMiddleware, downloadController.getDownloadRecipeController )
+
 module.exports = routes
