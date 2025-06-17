@@ -7,6 +7,7 @@ const saveRecipeController = require('./controllers/savedRecipeController');
 const downloadController = require('./controllers/downloadController');
 const jwtMiddleware = require('./middlewares/jwtMiddleware');
 
+
 //register api
 routes.post('/user-register',userController.registerController);
 
@@ -16,6 +17,7 @@ routes.post('/user-login', userController.loginController)
 //get home recipes
 routes.get('/home-recipes', recipeController.getHomeRecipeController )
 
+
 // get all the recipes
 routes.get('/all-recipes', recipeController.getAllRecipeController)
 
@@ -23,12 +25,12 @@ routes.get('/all-recipes', recipeController.getAllRecipeController)
 routes.get('/view/:id',jwtMiddleware, recipeController.getSingleRecipeController)
 
 //get all related recipes
-routes.get('/related-recipes',jwtMiddleware,recipeController.getAllRelatedRecipesController)
+routes.get('/related-recipes',jwtMiddleware,recipeController.getAllRelatedRecipesController);
 
 //save a recipe
-routes.post('/save-recipe/:recipeid',jwtMiddleware, saveRecipeController.addSaveRecipeController)
+routes.post('/save-recipe/:recipeid',jwtMiddleware, saveRecipeController.addSaveRecipeController);
 
-routes.post('/download-recipe/:recipeId',jwtMiddleware,downloadController.addDownloadRecipeController)
+routes.post('/download-recipe/:recipeId',jwtMiddleware,downloadController.addDownloadRecipeController);
 
 routes.get('/saved-user-recipes',jwtMiddleware,saveRecipeController.getAllSavedUserRecipesController);
 
@@ -36,5 +38,8 @@ routes.delete('/delete-saved-recipe/:id',saveRecipeController.deleteSavedRecipes
 
 //path to get all the downloaded recipes
 routes.get('/downloaded-user-recipes', jwtMiddleware, downloadController.getDownloadRecipeController )
+
+//path to update the user profile
+routes.put('/profile-update',jwtMiddleware, userController.updateProfileController);
 
 module.exports = routes

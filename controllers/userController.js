@@ -55,6 +55,32 @@ exports.loginController = async(req,res) =>{
     }
 }
 
+//update profile
+exports.updateProfileController = async(req,res)=>{
+    const userId = req.payload;
+    const { profileImage } = req.body;
+
+    console.log(profileImage, userId)
+
+    const existingUser = await users.findOne({_id:userId})
+    try{
+        if(existingUser){
+            // return
+            const newUser = await users.findByIdAndUpdate({_id:userId},{
+                username:existingUser.username,
+                email:existingUser.email,
+                password: existingUser.password,
+                role: existingUser.role,
+                profile: profileImage
+            },{new:true})
+            console.log({newUser})
+            res.status(200).json(newUser);
+        }
+    }catch(error){
+        res.status(401).json(error)
+    }
+}
+
 /*
  curl -X POST http://localhost:4000/user-login  -H "Content-Type: application/json" \
  -d '{"username":"","password":""}'
