@@ -42,4 +42,10 @@ routes.get('/downloaded-user-recipes', jwtMiddleware, downloadController.getDown
 //path to update the user profile
 routes.put('/profile-update',jwtMiddleware, userController.updateProfileController);
 
+// fetch all users
+routes.get('/all-users',userController.getAllUserController);
+
+//fetch all downloads
+routes.get('/all-downloads',downloadController.getAllDownloadsController);
+
 module.exports = routes

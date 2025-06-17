@@ -81,6 +81,18 @@ exports.updateProfileController = async(req,res)=>{
     }
 }
 
+//get all user controller
+
+exports.getAllUserController = async(req,res) => {
+    try{
+        const allUsers = await users.find();
+        res.status(200).json(allUsers);
+    }catch(error){
+        res.status(500).json(error)
+    }
+}
+
+
 /*
  curl -X POST http://localhost:4000/user-login  -H "Content-Type: application/json" \
  -d '{"username":"","password":""}'
