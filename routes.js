@@ -4,6 +4,7 @@ const routes = express.Router();
 const userController = require('./controllers/userController');
 const recipeController = require('./controllers/recipeController')
 const saveRecipeController = require('./controllers/savedRecipeController');
+const testimonialController = require('./controllers/testimonialController');
 const downloadController = require('./controllers/downloadController');
 const jwtMiddleware = require('./middlewares/jwtMiddleware');
 
@@ -47,5 +48,21 @@ routes.get('/all-users',userController.getAllUserController);
 
 //fetch all downloads
 routes.get('/all-downloads',downloadController.getAllDownloadsController);
+
+routes.post('/add-recipe',recipeController.addNewRecipeController)
+
+//delele a recipe
+routes.delete('/delete-recipe/:recipeid',recipeController.deleteRecipeController)
+
+//add a new testimonial
+
+routes.post('/add-testimonial',testimonialController.addTestimonialController);
+
+routes.get('/all-testimonials',testimonialController.getAllTestimonials);
+
+routes.put('/update-testimonial/:id',testimonialController.updateTestimonialController);
+
+//route to get all approved testimonials
+routes.get('/all-approved-testimonials',testimonialController.getAllApprovedTestimonials);
 
 module.exports = routes

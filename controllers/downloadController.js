@@ -12,6 +12,10 @@ console.log(userId);
         const existingRecipe = await downloads.findOne({recipeId})
         if(existingRecipe){
 
+            let count = Number(existingRecipe.count)
+            existingRecipe.count = count+1;
+            await existingRecipe.save();
+            res.status(200).json(existingRecipe)
         }else{
             const newRecipe = new downloads({
                 recipeId,
